@@ -104,11 +104,8 @@ travel_insurance = st.sidebar.checkbox("🛡️ Get Travel Insurance")
 currency_converter = st.sidebar.checkbox("💱 Currency Exchange Rates")
 
 # API Keys
-SERPAPI_KEY = "402dad71388beeed3b78e7c73032c6ecf626f440b8bbb98de907ef38d09fb7c9"
-GOOGLE_API_KEY = "AIzaSyC7KTV5yTKgkrcluw_5MHOL0YNHQYN47WU"
-
-os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
-os.environ["SERPAPI_KEY"] = SERPAPI_KEY
+SERPAPI_KEY   = os.getenv("SERPAPI_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # Divider for aesthetics
 st.markdown("---")
