@@ -1,6 +1,7 @@
-streamlit>=1.24.0
+
 serpapi
 agno
 python-dotenv
-
-
+google-search-results
+google-genai
+streamlit>=1.24.0
