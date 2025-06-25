@@ -1,4 +1,4 @@
-
+groq
 serpapi
 agno
 python-dotenv
