@@ -6,8 +6,11 @@ import os
 from serpapi import GoogleSearch
 from agno.agent import Agent
 from agno.tools.serpapi import SerpApiTools
-from agno.models.google import Gemini
+# from agno.models.google import Gemini
+from agno.models.groq import Groq
+
 from datetime import datetime
+
 
 # Set up Streamlit UI with a travel-friendly theme
 st.set_page_config(page_title="🐝GooBee", layout="wide")
@@ -83,7 +86,7 @@ st.sidebar.image(logo_path, use_container_width=True)
 st.sidebar.subheader("Personalize Your Trip")
 
 # Preferred hotel rating
-hotel_rating = st.sidebar.selectbox("🏨 Preferred Hotel Rating:", ["Any", "3⭐", "4⭐", "5⭐"])
+hotel_rating = st.sidebar.selectbox("🏨 Preferred Hotel Rating:", ["Any","2⭐", "3⭐", "4⭐", "5⭐"])
 
 # Packing Checklist
 st.sidebar.subheader("🎒 Packing Checklist")
@@ -105,7 +108,9 @@ currency_converter = st.sidebar.checkbox("💱 Currency Exchange Rates")
 
 # API Keys
 SERPAPI_KEY   = os.getenv("SERPAPI_KEY")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+# GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Divider for aesthetics
 st.markdown("---")
@@ -167,7 +172,7 @@ researcher = Agent(
         "Prioritize information from reliable sources and official travel guides.",
         "Provide well-structured summaries with key insights and recommendations."
     ],
-    model=Gemini(id="gemini-2.0-flash-exp"),
+    model=Groq(id="llama-3.3-70b-versatile"),
     tools=[SerpApiTools(api_key=SERPAPI_KEY)],
     add_datetime_to_instructions=True,
 )
@@ -181,7 +186,7 @@ planner = Agent(
         "Optimize the schedule for convenience and enjoyment.",
         "Present the itinerary in a structured format."
     ],
-    model=Gemini(id="gemini-2.0-flash-exp"),
+    model=Groq(id="llama-3.3-70b-versatile"),
     add_datetime_to_instructions=True,
 )
 
@@ -194,7 +199,7 @@ hotel_restaurant_finder = Agent(
         "Prioritize results based on user preferences, ratings, and availability.",
         "Provide direct booking links or reservation options where possible."
     ],
-    model=Gemini(id="gemini-2.0-flash-exp"),
+    model=Groq(id="llama-3.3-70b-versatile"),
     tools=[SerpApiTools(api_key=SERPAPI_KEY)],
     add_datetime_to_instructions=True,
 )
